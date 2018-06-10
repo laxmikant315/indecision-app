@@ -1,20 +1,33 @@
-var path = require('path');
+var path = require("path");
 
-module.exports={
-    entry:'./src/app.js',
-    output:{
-        path:path.join(__dirname,'public'),
-        filename:'bundle.js'
+module.exports = (env,argv) => {
+   
+    console.log('env',argv.mode)
+
+    const isProduction = argv.mode === 'production';
+    console.log('isProduction',isProduction)
+  return {
+    entry: "./src/app.js",
+    output: {
+      path: path.join(__dirname, "public"),
+      filename: "bundle.js"
     },
-    module:{
-        rules:[{
-            loader:'babel-loader',
-            test:/\.js$/,
-            exclude:/node_modules/
-        }]
+    module: {
+      rules: [
+        {
+          loader: "babel-loader",
+          test: /\.js$/,
+          exclude: /node_modules/
+        },
+        {
+          test: /\.s?css$/,
+          use: ["style-loader", "css-loader", "sass-loader"]
+        }
+      ]
     },
-    devServer:{
-        contentBase:path.join(__dirname,'public')
+    devtool: (isProduction?'source-map':'cheap-module-eval-source-map'),
+    devServer: {
+      contentBase: path.join(__dirname, "public")
     }
-    
+  };
 };
