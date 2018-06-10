@@ -5,7 +5,7 @@ module.exports = (env,argv) => {
     console.log('env',argv.mode)
 
     const isProduction = argv.mode === 'production';
-    console.log('isProduction',isProduction)
+    console.log('isProduction',isProduction);
   return {
     entry: "./src/app.js",
     output: {
